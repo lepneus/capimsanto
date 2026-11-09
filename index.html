@@ -15,9 +15,9 @@
 .mini-c img { left:-340px; }
 .mini-d img { left:-510px; }
 @media (max-width:600px) {
-  .pouch { width:185px; height:260px; top:70px; }
-  .pouch img { width:740px; }
-  .product-a img { left:0; } .product-b img { left:-185px; } .product-c img { left:-370px; } .product-d img { left:-555px; }
+  .pouch { width:230px; height:275px; top:68px; }
+  .pouch img { width:920px; }
+  .product-a img { left:0; } .product-b img { left:-230px; } .product-c img { left:-460px; } .product-d img { left:-690px; }
   .mini { width:125px; height:145px; }
   .mini img { width:500px; }
   .mini-a img { left:0; } .mini-b img { left:-125px; } .mini-c img { left:-250px; } .mini-d img { left:-375px; }
@@ -26,15 +26,21 @@
 </style><style>
 :root { --capim:#4f604d; --capim-dark:#354735; --capim-light:#e8eedf; --capim-accent:#b8ce72; }
 body { background:#f1f3ed; }
+html, body { max-width:100%; overflow-x:hidden; }
+.sr-only { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
 .top { min-height:126px; height:auto; background:#4b5b49; padding:10px 3%; gap:32px; }
 .logo { width:280px; min-width:250px; display:flex; align-items:center; text-decoration:none; }
 .company-logo { width:100%; height:auto; display:block; border-radius:12px; }
 .search { max-width:670px; border:2px solid transparent; box-shadow:0 10px 30px rgba(25,40,25,.16); transition:border-color .2s,box-shadow .2s; }
 .search:focus-within { border-color:var(--capim-accent); box-shadow:0 10px 30px rgba(25,40,25,.24); }
 .search input { width:100%; border:0; outline:0; background:transparent; color:#273328; font:inherit; }
+.search input { min-width:0; }
 .search input::placeholder { color:#6d776d; }
 .search button { border:0; background:transparent; cursor:pointer; padding:4px 8px 4px 16px; }
+.search .mag { display:block; flex:0 0 auto; width:22px; height:22px; border:2px solid #263328; border-radius:50%; }
+.search .mag::after { width:9px; height:2px; right:-7px; bottom:-3px; background:#263328; }
 .utilities { display:flex !important; margin-left:auto; }
+.burger { border:0; background:transparent; color:inherit; cursor:pointer; font-family:inherit; }
 .zap-button { display:flex; align-items:center; gap:12px; border:1px solid rgba(255,255,255,.55); border-radius:14px; background:#f4f6ee; padding:12px 18px; color:var(--capim-dark) !important; box-shadow:0 8px 24px rgba(23,37,23,.18); }
 .zap-button svg { width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:1.8; }
 .zap-button span { line-height:1.15; }
@@ -66,21 +72,45 @@ body { background:#f1f3ed; }
   .zap-button strong { font-size:13px; }
 }
 @media (max-width:760px) {
-  .top { flex-wrap:wrap; padding:12px 16px 16px; }
-  .logo { width:210px; min-width:0; }
-  .search { order:3; flex-basis:100%; max-width:none; height:50px; }
+  .top { min-height:0; flex-wrap:wrap; padding:10px 14px 14px; gap:10px 12px; }
+  .logo { width:min(48vw,185px); min-width:0; }
+  .company-logo { border-radius:9px; }
+  .search { order:3; flex-basis:100%; max-width:none; height:48px; min-width:0; padding:0 14px 0 18px; font-size:14px; border-radius:12px; }
+  .search button { flex:0 0 auto; padding-left:10px; }
   .utilities { margin-left:auto; }
-  .zap-button { padding:9px 11px; }
+  .zap-button { gap:7px; padding:8px 10px; border-radius:10px; }
   .zap-button span small { display:none; }
+  .bar { height:58px; padding:0 14px; gap:10px; overflow:hidden; flex-wrap:wrap; align-content:flex-start; transition:height .25s ease,padding-bottom .25s ease; }
+  .bar .burger { order:1; width:40px; height:58px; padding:0; border:0; background:transparent; color:#263328; font-size:29px; cursor:pointer; }
+  .bar > a { display:none; }
+  .bar > a:first-of-type { order:2; display:flex; align-items:center; height:58px; font-size:14px; }
+  .bar > .black { order:3; display:block; margin:8px 0 8px auto; padding:12px 13px; font-size:12px; }
+  .bar.is-open { height:auto; padding-bottom:12px; }
+  .bar.is-open > a:not(:first-of-type):not(.black) { order:4; display:block; width:calc(50% - 5px); padding:11px 10px; border-radius:8px; background:#f1f3ed; color:#435043; font-size:12px; }
   .store-locations { margin-top:18px; padding:44px 16px 52px; border-radius:18px 18px 0 0; }
   .locations-grid { grid-template-columns:1fr; }
   .location-card { grid-template-columns:auto 1fr; }
   .location-card a { grid-column:1 / -1; padding-left:76px; }
 }
 @media (max-width:430px) {
-  .logo { width:170px; }
+  .logo { width:min(46vw,165px); }
   .zap-button svg { width:23px; height:23px; }
-  .zap-button strong { font-size:12px; }
+  .zap-button strong { font-size:11px; }
+  .bar.is-open > a:not(:first-of-type):not(.black) { width:100%; }
+  .store-locations { padding:36px 12px 44px; }
+  .locations-heading h2 { font-size:34px; }
+  .locations-heading p { font-size:14px; }
+  .location-card { grid-template-columns:46px 1fr; gap:12px; min-height:0; padding:18px 15px; }
+  .location-icon { width:46px; height:46px; }
+  .location-card h3 { font-size:21px; }
+  .location-card a { padding-left:0; margin-top:4px; }
+  .steps { grid-template-columns:1fr; padding:20px 14px 30px; gap:16px; }
+  .step { height:430px; }
+  .catalog { margin:30px auto; padding:0 14px; }
+  .cards { grid-template-columns:1fr; gap:14px; }
+  .cardimg { height:200px; }
+  .card h3 { min-height:0; }
+  .price { margin-top:16px; }
 }
 
 </style><style>
@@ -115,15 +145,32 @@ body { background:#f1f3ed; }
 .capim-dot { width:26px; height:6px; border:0; border-radius:99px; background:rgba(255,255,255,.48); cursor:pointer; transition:width .25s,background .25s; }
 .capim-dot.active { width:42px; background:#fff; }
 @media (max-width:850px) {
-  .capim-hero { height:610px; }
-  .capim-hero-inner { grid-template-columns:1fr; grid-template-rows:auto 1fr auto; gap:5px; padding:34px 42px 50px; text-align:center; }
-  .capim-copy h1,.capim-copy h2 { font-size:clamp(36px,9vw,52px); }
+  .capim-hero { height:660px; }
+  .capim-hero-inner { grid-template-columns:1fr; grid-template-rows:auto 215px auto; gap:6px; padding:28px 42px 48px; text-align:center; }
+  .capim-copy h1,.capim-copy h2 { font-size:clamp(34px,8vw,48px); }
   .capim-copy p { margin:auto; font-size:14px; }
-  .capim-product { min-height:190px; }
-  .capim-product img { max-height:230px; width:min(520px,100%); }
+  .capim-product { min-height:0; }
+  .capim-product img { max-height:210px; width:min(480px,100%); }
   .capim-offer { text-align:center; }
   .capim-offer p { margin:12px auto 0; }
   .capim-arrow { width:38px; height:38px; }
+}
+@media (max-width:480px) {
+  .capim-hero { height:650px; }
+  .capim-hero-inner { grid-template-rows:auto 200px auto; padding:24px 38px 44px; }
+  .capim-kicker { padding:7px 12px; font-size:9px; letter-spacing:.14em; }
+  .capim-copy h1,.capim-copy h2 { margin:12px 0 8px; font-size:clamp(29px,9vw,38px); line-height:1; }
+  .capim-copy p { font-size:13px; line-height:1.4; }
+  .capim-product img { max-height:195px; }
+  .capim-offer small { font-size:9px; }
+  .capim-offer strong { margin:5px 0 11px; font-size:23px; }
+  .capim-cta { width:100%; min-width:0; max-width:250px; padding:12px 15px; font-size:11px; }
+  .capim-offer p { margin-top:9px; font-size:9px; }
+  .capim-arrow { width:34px; height:34px; font-size:25px; }
+  .capim-prev { left:5px; }.capim-next { right:5px; }
+  .capim-dots { bottom:13px; gap:7px; }
+  .capim-dot { width:19px; height:5px; }
+  .capim-dot.active { width:31px; }
 }
 @media (prefers-reduced-motion:reduce) { .capim-slide,.capim-cta,.capim-arrow { transition:none; } }
 
@@ -148,7 +195,7 @@ body { background:#f1f3ed; }
   </div>
 
   <nav class="bar" aria-label="Categorias principais">
-    <span class="burger" aria-hidden="true">☰</span>
+    <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
     <a href="#categorias">CATEGORIAS</a>
     <a href="#mais">TOP 20</a>
     <a href="#mais">LANÇAMENTOS</a>
@@ -307,6 +354,19 @@ body { background:#f1f3ed; }
 </section>
 </main><script>
 document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector('.bar');
+  const menuButton = nav?.querySelector('.burger');
+  menuButton?.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  });
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+    nav.classList.remove('is-open');
+    menuButton?.setAttribute('aria-expanded', 'false');
+    menuButton?.setAttribute('aria-label', 'Abrir menu');
+  }));
+
   const form = document.querySelector('[data-product-search]');
   const input = form?.querySelector('input[type="search"]');
   const products = [...document.querySelectorAll('.card')];
